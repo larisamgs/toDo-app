@@ -1,18 +1,12 @@
-const arrayForTodos = [];
+let arrayForTodos = [];
+getJsondata();
 
 async function getJsondata() {
   const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-  const JsonData = await response.json();
-  return JsonData;
-}
-getJsondata().then((JsonData) => {
-  let tempArrForJsonData = [];
-  tempArrForJsonData = JsonData;
-  tempArrForJsonData.forEach((item) => {
-    arrayForTodos.push(item);
-  });
+  const dataFromAPI = await response.json();
+  arrayForTodos = dataFromAPI;
   displayArray(arrayForTodos);
-});
+}
 
 const searchLoupe = document.getElementById("search-loupe");
 searchLoupe.addEventListener("click", eventListenerClickForLoupeSearch);
@@ -84,7 +78,8 @@ function POSTtodo(input, array) {
 
 function deleteTodos(id) {
   const filteredArrayById = arrayForTodos.filter((element) => element.id != id);
-  displayArray(filteredArrayById);
+  arrayForTodos = filteredArrayById;
+  displayArray(arrayForTodos);
   DELETEtodo();
 }
 
